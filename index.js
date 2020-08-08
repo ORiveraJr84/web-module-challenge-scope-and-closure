@@ -56,10 +56,8 @@ function counter2() {
 
 Write a function called `inning` that returns a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
+function inning(){
+    return Math.floor((Math.random() * 3));
 }
 
 /* Task 3: finalScore()
@@ -76,11 +74,25 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
+function finalScore(ptsPerInning, numOfInnings){
 
-  /*Code Here*/
+  let runningHomeScore = 0;
+  let runningAwayScore = 0;
 
+  for (let i = 0; i < numOfInnings; i++) {
+    runningHomeScore += ptsPerInning();
+    runningAwayScore += ptsPerInning();
+  }
+
+  let score = {
+    "Home" : runningHomeScore,
+    "Away" : runningAwayScore
+  }
+
+  return score;
 }
+
+console.log(finalScore(inning, 9));
 
 /* Task 4: 
 
@@ -103,8 +115,39 @@ and returns the score at each pont in the game, like so:
 Final Score: awayTeam - homeTeam */
 
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(ptsPerInning , numOfInnings) {
+  
+  let runningHomeScore = 0;
+  let runningAwayScore = 0;
+
+  function getInningScore (numOfInnings){
+
+    for (let i = 0; i < numOfInnings; i++) {
+      runningHomeScore += ptsPerInning();
+      runningAwayScore += ptsPerInning();
+      
+      if (i == 0) {
+        console.log(`1st inning: Away Team has ${runningAwayScore} - Home Team has ${runningHomeScore}`);
+      } else if (i == 1) {
+        console.log(`2nd inning: Away Team has ${runningAwayScore} - Home Team has ${runningHomeScore}`);
+      } else if (i == 2) {
+        console.log(`3rd inning: Away Team has ${runningAwayScore} - Home Team has ${runningHomeScore}`);
+      } else {
+        console.log(`${i+1}th inning: Away Team has ${runningAwayScore} - Home Team has ${runningHomeScore}`);
+      }
+    }
+  }
+
+  getInningScore(numOfInnings);
+
+  let finalScore = {
+    "Home" : runningHomeScore,
+    "Away" : runningAwayScore
+  }
+
+  console.log(`Final Score: Away Team has ${finalScore.Away} - Home Team has ${finalScore.Home}`);
 }
+
+scoreboard(inning , 9);
 
 
